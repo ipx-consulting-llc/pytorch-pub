@@ -4811,6 +4811,8 @@ for shape in [(1,), ()]:
             saved[1].register_hooks(lambda x: x, lambda x: x)
 
         saved[0].register_hooks(lambda x: x, lambda x: x)
+        with self.assertRaisesRegex(RuntimeError, "already been set"):
+            saved[0].register_hooks(lambda x: x, lambda x: x)
         y.sum().backward()
 
         # Using a reference to the SavedTensor object after the
